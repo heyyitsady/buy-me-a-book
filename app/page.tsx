@@ -17,7 +17,7 @@ export default function Home() {
   const presets = [1, 3, 5]
 
   return (
-    <main className="container flex flex-col items-center m-auto">
+    <main className="container h-screen flex flex-col justify-center items-center m-auto">
       <div>
         <Image src={Avatar} alt="Bald man reading something" width={300} height={300} />
         <h2>Atharva Pardeshi (Sazed)</h2>
