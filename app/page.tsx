@@ -4,8 +4,9 @@ import { DONATION_IN_CENTS, MAX_DONATION } from "@/config"
 import Image from "next/image"
 import { useState } from "react"
 
-import Avatar from "@/public/avatar.png"
+import profile from "@/public/avatar.png"
 import Art from "@/public/weird-rect-thing.gif"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 export default function Home() {
   const [error, setError] = useState(null)
@@ -18,13 +19,16 @@ export default function Home() {
 
   return (
     <main className="container h-screen flex flex-col justify-center items-center m-auto">
-      <div>
-        <Image src={Avatar} alt="Bald man reading something" width={300} height={300} />
-        <h2>Atharva Pardeshi (Sazed)</h2>
-        <p>is a self-taught software developer</p>
+      <div className="flex flex-col justify-center items-center my-6">
+        <Avatar className="h-28 w-28 md:h-36 md:w-36" >
+          <AvatarImage src="https://avatars.githubusercontent.com/u/66564964?v=4" />
+          <AvatarFallback>Sazed</AvatarFallback>
+        </Avatar>
+        <h1 className="text-3xl font-bold">Atharva Pardeshi (Sazed)</h1>
+        <p className="text-xl">is a self-taught software developer</p>
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex flex-col md:flex-row justify-center items-center">
         <div className="w-1/2">
           <Image src={Art} alt="Generative art thing" className="aspect-video" />
           <p>
