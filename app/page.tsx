@@ -1,12 +1,13 @@
 "use client"
 
-import { DONATION_IN_CENTS, MAX_DONATION } from "@/config"
+
 import Image from "next/image"
 import { useState } from "react"
 
-import profile from "@/public/avatar.png"
 import Art from "@/public/weird-rect-thing.gif"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+
+import { DONATION_IN_CENTS, MAX_DONATION } from "@/config"
+import Profile from "@/components/profile"
 
 export default function Home() {
   const [error, setError] = useState(null)
@@ -19,14 +20,7 @@ export default function Home() {
 
   return (
     <main className="container h-screen flex flex-col justify-center items-center m-auto">
-      <div className="flex flex-col justify-center items-center my-6">
-        <Avatar className="h-28 w-28 md:h-36 md:w-36" >
-          <AvatarImage src="https://avatars.githubusercontent.com/u/66564964?v=4" />
-          <AvatarFallback>Sazed</AvatarFallback>
-        </Avatar>
-        <h1 className="text-3xl font-bold">Atharva Pardeshi (Sazed)</h1>
-        <p className="text-xl">is a self-taught software developer</p>
-      </div>
+      <Profile />
 
       <div className="flex flex-col md:flex-row justify-center items-center">
         <div className="w-1/2">
@@ -35,7 +29,6 @@ export default function Home() {
             Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
           </p>
         </div>
-
         <div>
           <h1>Buy me a book</h1>
           {presets.map((preset) => (
