@@ -21,10 +21,10 @@ const InfoCard = () => {
 				</p>
 
 				<div className="flex flex-row gap-4 p-4 pb-0">
-					<Link href="https://github.com/SazedWorldbringer">
+					<Link href="https://github.com/SazedWorldbringer" target="_blank">
 						<Github className="text-muted-foreground hover:text-foreground hover:scale-105 transition duration-200" />
 					</Link>
-					<Link href="https://atharvapardeshi.vercel.app">
+					<Link href="https://atharvapardeshi.vercel.app" target="_blank">
 						<Laptop className="text-muted-foreground hover:text-foreground hover:scale-105 transition duration-200" />
 					</Link>
 				</div>
