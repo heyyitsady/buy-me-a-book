@@ -1,6 +1,5 @@
 import * as React from "react"
-
-import { Book, Loader2, X } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 import { DONATION_IN_CENTS, MAX_DONATION } from "@/config"
 
@@ -14,6 +13,7 @@ import * as ToggleGroup from "@radix-ui/react-toggle-group"
 import { Icons } from "./icons"
 
 const DonationForm = ({ }) => {
+	const router = useRouter()
 	const [error, setError] = React.useState(null)
 	const [quantity, setQuantity] = React.useState<number>(1)
 	const [name, setName] = React.useState<string>("")
@@ -27,13 +27,31 @@ const DonationForm = ({ }) => {
 		event.preventDefault()
 		setIsLoading(true)
 
-		console.log(name)
-		console.log(message)
-		console.log(quantity)
+		const response = await fetch('/api/checkout', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify({
+				quantity,
+				name,
+				message
+			}),
+		})
+
+		const res = await response.json()
+		if (!res.ok) {
+			setError(res.error)
+			return
+		}
+
+		const url = res.url
 
 		setTimeout(() => {
 			setIsLoading(false)
 		}, 3000)
+
+		router.push(url)
 	}
 
 	return (
@@ -96,7 +114,8 @@ const DonationForm = ({ }) => {
 			<Textarea
 				id="message"
 				onChange={(e) => setMessage(e.target.value)}
-			placeholder="Say something nice...?"
+				value={message}
+				placeholder="Say something nice...?"
 				className="hover:bg-accent focus:bg-input transition duration-200"
 				disabled={isLoading}
 			/>
