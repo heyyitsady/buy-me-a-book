@@ -1,6 +1,7 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import { DONATION_IN_CENTS, STRIPE_API_KEY } from "@/config";
-import { NextApiRequest, NextApiResponse } from "next";
+import { headers } from "next/dist/client/components/headers";
+import { NextResponse } from "next/server";
 
 import Stripe from "stripe";
 
@@ -8,15 +9,14 @@ const stripe = new Stripe(STRIPE_API_KEY, {
 	apiVersion: "2022-11-15",
 })
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse
-) {
-	if (req.method !== 'POST') {
-		return res.status(405).json({ message: 'Method not allowed' })
-	}
+export async function POST(req: Request, res: Response) {
+	const body = await req.json()
 
-	const quantity = req.body.quantity || 1
-	const message = req.body.message || ''
-	const name = req.body.message || 'Anonymous'
+	const quantity = body.quantity || 1
+	const message = body.message || ''
+	const name = body.message || 'Anonymous'
+
+	const headersInstance = headers()
 
 	try {
 		const session = await stripe.checkout.sessions.create({
@@ -37,20 +37,21 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse
 					quantity,
 				},
 			],
-			success_url: `${req.headers.origin}/thank-you`,
-			cancel_url: `${req.headers.origin}/cancel`,
+			success_url: `${headersInstance.get('origin')}/thank-you`,
+			cancel_url: `${headersInstance.get('origin')}/cancel`,
 		});
 
 		const url = session.url
 
 		if (url) {
-			return res.status(200).json({ url })
+			return NextResponse.json({ url }, { status: 200 })
 		}
 
-		return res.status(500).json({ message: "Something went wrong" })
+		return NextResponse.json({ message: "Something went wrong" }, { status: 500 })
+
 	} catch (e) {
 		console.error("Error creating session " + e)
-		return res.status(500).json({ message: "Something went wrong" })
+		return NextResponse.json({ message: "Something went wrong" }, { status: 500 })
 	}
 }
 
