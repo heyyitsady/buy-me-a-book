@@ -11,14 +11,16 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import * as ToggleGroup from "@radix-ui/react-toggle-group"
 import { Icons } from "./icons"
+import { useToast } from "./ui/use-toast"
 
 const DonationForm = ({ }) => {
-	const router = useRouter()
-	const [error, setError] = React.useState(null)
 	const [quantity, setQuantity] = React.useState<number>(1)
 	const [name, setName] = React.useState<string>("")
 	const [message, setMessage] = React.useState<string>("")
 	const [isLoading, setIsLoading] = React.useState<boolean>(false)
+
+	const router = useRouter()
+	const { toast } = useToast()
 
 	// preset number of books
 	const presets = [1, 3, 5]
@@ -26,6 +28,10 @@ const DonationForm = ({ }) => {
 	async function onSubmit(event: React.SyntheticEvent) {
 		event.preventDefault()
 		setIsLoading(true)
+
+		setTimeout(() => {
+			setIsLoading(false)
+		}, 4000)
 
 		const response = await fetch('/api/checkout', {
 			method: 'POST',
@@ -38,20 +44,23 @@ const DonationForm = ({ }) => {
 				message
 			}),
 		})
+			.catch(error => {
+				toast({
+					variant: "destructive",
+					title: "Uh oh! Something went wrong.",
+					description: error.message
+				})
+			})
+
+		toast({
+			description: "Success! Redirecting to payment page."
+		})
 
 		const res = await response.json()
-		if (!res.ok) {
-			setError(res.error)
-			return
+		if (res.url) {
+			const url = res.url
+			router.push(url)
 		}
-
-		const url = res.url
-
-		setTimeout(() => {
-			setIsLoading(false)
-		}, 3000)
-
-		router.push(url)
 	}
 
 	return (
