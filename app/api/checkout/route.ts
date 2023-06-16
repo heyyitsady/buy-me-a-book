@@ -9,7 +9,7 @@ const stripe = new Stripe(STRIPE_API_KEY, {
 	apiVersion: "2022-11-15",
 })
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: Request) {
 	const body = await req.json()
 
 	const quantity = body.quantity || 1
