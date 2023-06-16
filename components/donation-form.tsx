@@ -84,7 +84,7 @@ const DonationForm = ({ }) => {
 				id="name"
 				onChange={(e) => setName(e.target.value)}
 				value={name}
-				placeholder="Name"
+				placeholder="Name or @twitterhandle"
 				autoCapitalize="none"
 				autoComplete="name"
 				autoCorrect="off"
@@ -96,7 +96,7 @@ const DonationForm = ({ }) => {
 			<Textarea
 				id="message"
 				onChange={(e) => setMessage(e.target.value)}
-				placeholder={message}
+			placeholder="Say something nice...?"
 				className="hover:bg-accent focus:bg-input transition duration-200"
 				disabled={isLoading}
 			/>
