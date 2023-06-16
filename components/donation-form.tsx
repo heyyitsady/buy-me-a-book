@@ -52,12 +52,12 @@ const DonationForm = ({ }) => {
 				})
 			})
 
-		toast({
-			description: "Success! Redirecting to payment page."
-		})
-
-		const res = await response.json()
+		const res = await response?.json()
 		if (res.url) {
+			toast({
+				description: "Success! Redirecting to payment page."
+			})
+
 			const url = res.url
 			router.push(url)
 		}
