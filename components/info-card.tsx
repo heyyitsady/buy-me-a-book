@@ -5,8 +5,7 @@ import Art from "@/public/weird-rect-thing.gif"
 
 import { AspectRatio } from "./ui/aspect-ratio"
 import { Card, CardContent } from "./ui/card"
-
-import { Github, Laptop } from "lucide-react"
+import { Icons } from "./icons"
 
 const InfoCard = () => {
 	return (
@@ -22,10 +21,10 @@ const InfoCard = () => {
 
 				<div className="flex flex-row gap-4 p-4 pb-0">
 					<Link href="https://github.com/SazedWorldbringer" target="_blank">
-						<Github className="text-muted-foreground hover:text-foreground hover:scale-105 transition duration-200" />
+						<Icons.github className="text-muted-foreground hover:text-foreground hover:scale-105 transition duration-200" />
 					</Link>
 					<Link href="https://atharvapardeshi.vercel.app" target="_blank">
-						<Laptop className="text-muted-foreground hover:text-foreground hover:scale-105 transition duration-200" />
+						<Icons.website className="text-muted-foreground hover:text-foreground hover:scale-105 transition duration-200" />
 					</Link>
 				</div>
 			</CardContent>

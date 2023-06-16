@@ -11,6 +11,7 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
 import * as ToggleGroup from "@radix-ui/react-toggle-group"
+import { Icons } from "./icons"
 
 const DonationForm = ({ }) => {
 	const [error, setError] = React.useState(null)
@@ -41,8 +42,8 @@ const DonationForm = ({ }) => {
 			onSubmit={onSubmit}
 		>
 			<div className="flex flex-row justify-around items-center gap-1 border border-input p-2">
-				<Book />
-				<X className="h-4 w-4" />
+				<Icons.book />
+				<Icons.times className="h-4 w-4" />
 				<ToggleGroup.Root
 					type="single"
 					defaultValue="1"
@@ -105,7 +106,7 @@ const DonationForm = ({ }) => {
 				disabled={isLoading}
 			>
 				{isLoading && (
-					<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+					<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
 				)}
 
 				Donate ${quantity * (DONATION_IN_CENTS / 100)}
