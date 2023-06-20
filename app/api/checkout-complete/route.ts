@@ -14,11 +14,11 @@ const stripe = new Stripe(STRIPE_API_KEY, {
 	apiVersion: "2022-11-15",
 })
 
-export const config = {
+/* export const config = {
 	api: {
 		bodyParser: false,
 	},
-}
+} */
 
 export async function POST(req: Request) {
 	const body = await req.json()
