@@ -6,8 +6,8 @@ import { Toaster } from '@/components/ui/toaster'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Buy me a book',
-  description: 'Buy me a coffee clone by Sazed',
+  title: 'Buy me a book | Sazed',
+  description: 'Buy me a coffee clone by Atharva Pardeshi (Sazed) built in Next.js',
 }
 
 export default function RootLayout({
