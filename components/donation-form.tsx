@@ -139,7 +139,7 @@ const DonationForm = ({ }) => {
 					<Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
 				)}
 
-				Donate ${quantity * (DONATION_IN_CENTS / 100)}
+				Donate &#x20b9;{quantity * 100}
 			</Button>
 		</form>
 	)
