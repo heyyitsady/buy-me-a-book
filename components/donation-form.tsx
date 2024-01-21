@@ -44,15 +44,8 @@ const DonationForm = ({ }) => {
 				message
 			}),
 		})
-			.catch(error => {
-				toast({
-					variant: "destructive",
-					title: "Uh oh! Something went wrong.",
-					description: error.message
-				})
-			})
 
-		const res = await response?.json()
+		const res = await response.json()
 		if (res.url) {
 			toast({
 				description: "Success! Redirecting to payment page."
@@ -60,6 +53,14 @@ const DonationForm = ({ }) => {
 
 			const url = res.url
 			router.push(url)
+		}
+
+		if (res.error) {
+			toast({
+				variant: 'destructive',
+				title: 'Uh oh! Something went wrong.',
+				description: res.error
+			})
 		}
 	}
 
@@ -96,6 +97,7 @@ const DonationForm = ({ }) => {
 
 				<Input
 					type="number"
+					id="books"
 					onChange={(e) => setQuantity(parseFloat(e.target.value))}
 					value={quantity}
 					min={1}
