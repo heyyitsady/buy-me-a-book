@@ -3,7 +3,6 @@ import { MERCHANT_ID, SALT_INDEX, SALT_KEY } from "@/config";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from 'uuid'
 import crypto from 'crypto'
-import axios from 'axios'
 
 export async function POST(req: Request) {
 	const body = await req.json()
@@ -40,37 +39,26 @@ export async function POST(req: Request) {
 		console.log(`checksum = ${checksum}`)
 
 		const url = 'https://api-preprod.phonepe.com/apis/pg-sandbox/pg/v1/pay'
-		/* const options = {
+		const request = await fetch(url, {
 			method: 'POST',
-			url: url,
 			headers: {
-				accept: 'application/json',
+
 				'Content-Type': 'application/json',
 				'X-VERIFY': checksum,
-				'X-MERCHANT-ID': MERCHANT_ID,
 			},
-			data: {
+			body: JSON.stringify({
 				request: payloadMain
-			},
-		} */
+			})
+		})
 
-		axios
-			.post(
-				url,
-				{ request: payloadMain },
-				{
-					headers: {
-						'Content-Type': 'application/json',
-						'X-VERIFY': checksum
-					}
-				},
-			)
-			.then(response => {
-				return NextResponse.json({ url: response.data.data.instrumentResponse.redirectInfo.url }, { status: response.status })
-			})
-			.catch((e) => {
-				console.log(e)
-			})
+		const response = await request.json()
+		if (response.data.instrumentResponse.redirectInfo.url) {
+			return NextResponse.json({ url: response.data.instrumentResponse.redirectInfo.url }, { status: 301 })
+		}
+
+		console.error("Something went wrong" + response.error)
+		return NextResponse.json({ message: "Something went wrong" }, { status: 500 })
+
 	} catch (e) {
 		console.error("Error creating session " + e)
 		return NextResponse.json({ message: "Something went wrong" }, { status: 500 })
