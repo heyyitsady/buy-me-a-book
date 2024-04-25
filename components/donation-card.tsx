@@ -5,7 +5,7 @@ const DonationCard = () => {
 	return (
 		<Card className="w-2/5">
 			<CardHeader>
-				<CardTitle className="text-2xl">Buy <span className="text-muted-foreground">Atharva Pardeshi (Sazed)</span> a book</CardTitle>
+				<CardTitle className="text-2xl">Buy <span className="text-muted-foreground">John Doe</span> a book</CardTitle>
 			</CardHeader>
 			<CardContent>
 				<DonationForm />
