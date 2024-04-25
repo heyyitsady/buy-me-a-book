@@ -18,7 +18,7 @@ export default function page() {
         <div className='flex flex-col justify-center items-center my-6'>
           <Avatar className="h-28 w-28 md:h-36 md:w-36 mb-4" >
             <AvatarImage src="https://avatars.githubusercontent.com/u/66564964?v=4" />
-            <AvatarFallback>Sazed</AvatarFallback>
+            <AvatarFallback>John Doe</AvatarFallback>
           </Avatar>
           <h1 className='text-4xl font-semibold tracking-tight leading-none'>Thank you!</h1>
           <p className='text-xl leading-normal text-muted-foreground'>Your donation has been received.</p>
